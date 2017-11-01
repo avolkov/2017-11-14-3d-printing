@@ -68,7 +68,74 @@ Starting out the build
 ######################
 
 
-Ordering stuff:
+Ordering stuff from China:
+
+There are several 3D printer specific parts and electronics needed:
+
+Wiring Kit
+==========
+
+.. image:: images/parts/001-wiring-kit.jpg
+
+To wire everything up, because you're really don't want to cramp and solder your own connection. Assembling a 3D printer takes up enough time alread
+
+
+Stepper Drivers
+===============
+
+.. image:: images/parts/002-stepper-drivers.jpg
+
+Basically transistors converting whatever is coming out of arduino into 12V/2A signal. For the purposes of doing the cheapest build use Allegros, they will work.
+
+RAMPS
+=====
+
+.. image:: images/parts/005-ramps.png
+
+The thing that connects arduino, steppers, wires motors and some fuses. This is an opensource design -- that's why it's possible to buy it from China for $5. There are attempts to 3D print this, that ended up with very mixed results.
+I'm not an electronics person but I've been told that fuses are garbage and #2 cause of 3D printers catching on fire.
+
+Knock off arduino
+=================
+
+.. image:: images/parts/011-arduino-mega-knockoff.png
+
+The thing that runs the whole thing, i.e. where USB cable gets plugged in.
+
+Inductive proximity probe
+=========================
+
+.. image:: images/parts/003-inductive-proximity-probe.png
+
+This is used for aligning a nozzle relatively to the bed, on Z axis and automatic bed compensation. The line of thought goes -- instead of spending ours leveling the bed and adjusting nozzle height, the only thing that has to be precisely set in a 3D printer, do it in software.
+
+Mechanical endstops
+===================
+
+.. image:: images/parts/004-mechanical-endstops.png
+
+The same thing but for X and Y axis, that don't need to be aligned. Basically mechanical switches..
+
+Heated Bed
+==========
+
+.. image:: images/parts/006-heated-bed.png
+
+If you want to print anything other than expensive PLA, this is for you. One of major annoying issues with FDM 3D printing is first layer adhesion. Theoretically it's possible to print without heated bed, but it's a world of pain, just get it, and this bed *Can* go to 105C.
+
+Power Supply
+============
+
+.. image:: images/parts/007-power-supply.png
+
+This is a 12V 20A little power supply that could. It costs $20 with shipping and I'm surprise about several things about it:
+
+  * that it worked at all
+  * that it didn't catch on fire
+  * heated bed alone bed draws 12A
+
+If you're serious about building a 3D printer, you should get at least 30A power supply, or better yet 24V if you are willing to deal with 24V issues. But I would definitely recommend this to a friend.
+
 
 * 3D printer parts from China
     * Talk about e3d v6 clones
