@@ -1,12 +1,15 @@
 =========
 On building a 3D printer from scratch
 =========
-Or How I spent this sprint, summer, autumn and the stupid thing is still going
+Or How I spent this spring, summer, autumn and the stupid thing is still going
 ---------
 
 So the story started some time ago where I was looking to get into 3D printing, and I've been mercilessly exploiting/taking care of hacklab 3d printers, where I printer a phone car holder and a tabled holder (do you see a pattern here?)
 
 I've been following Thomas Salandeerer channel toms3d on youtube, and at some point in february there was a featured series on how to build a 3D printer from scratch.
+
+TOM'S Guide
+===========
 
 Here are the videos:
 Tom's guilde -- [CIT001]_ on building the cheapest possible prusa i3
@@ -25,7 +28,7 @@ Prusa i3 wiki -- [CIT002]_
 Prusa i3 MK 2
 
 .. image:: images/001-prusa-i3-mk2.jpg
-    :width: 200
+    :width: 200px
 
 
 Prusa Mendel i2
