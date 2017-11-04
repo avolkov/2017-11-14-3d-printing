@@ -136,6 +136,70 @@ This is a 12V 20A little power supply that could. It costs $20 with shipping and
 
 If you're serious about building a 3D printer, you should get at least 30A power supply, or better yet 24V if you are willing to deal with 24V issues. But I would definitely recommend this to a friend.
 
+Radial Fan
+==========
+
+.. image:: images/parts/008-rad-fan.png
+
+Radial fan is need to print with PLA and PETG
+
+Hobbed Gear
+===========
+
+.. image:: images/parts/009-hobbed-gear.png
+
+Something that grabs fillamend and moves it to extruder. This designed is intended for makerbot, so extruder path needs to be modified slightly (with a drill) to accomodate for it. There are also specific designs in OpenScad that already account for this project (ardenpm)
+
+Thermistor set
+==============
+
+.. image:: images/parts/010-thermistor-set.png
+
+This just gets stuck to the bottom of the bed or whenever I manage to damage a thermistor on a the extruder. More expensive ones are more precise and still can mesure higer temperatures, but the cheap ones generally work. There's a silicone insulater just next to the thermistor, so it could be attached to whatever hot part it's measuring.
+
+For the hot bed the thermistors get attached with kapton tape. On E3D V6 hotend there's a screw that holds it in place.
+
+Arduino mega knockoff
+=====================
+
+.. image:: images/parts/011-arduino-mega-knockoff.png
+
+Or you can use genuine arduino mega. This underscores how many ideas for 3D printing were implemented in 1980s technology. Instead of figuring out a real-time system, a firmware was implement to work with bare hardware, arduino makes working with bare hardware easy.
+
+Nema 17 steppers
+================
+
+.. image:: images/parts/012-nema17hs4401-steppers.png
+
+Or just any stepper motors that fit profile. I bought these and then it turned out that the two leads in the middle are reversed. After figuring that out, I had to splice a wiring kit.
+
+For this design 2X motors for Z axis, and one motor for each ,X axis, Y axis and extruder.
+
+
+625 ball bearings
+=================
+
+.. image:: images/parts/13-625-ball-bearings.png
+
+In the design one of this used to press filament against hobbed gear attached to an extruder motor, so the filament can be pushed through into heat zone.
+
+Smooth rods
+===========
+
+.. image:: images/parts/014-smooth-rods.png
+
+Parts that provide precision and rigidity for linear movements. I bought these on aliexpress for about $40 a set and they suck, and my printers are terrible. The linear rods came pre-bent, and these are one part of the 3D printer that needs to be precise.
+ABS is sensitive to initial layer height, all plastic is, but ABS in particular. And if you ever want to print at all with ABS you need to straight rods.
+
+I'm getting a much more expensive set from Misumi USA, a part of this built was figuring out where to get suppliers, and if there's only one thing I can express in this talk it's -- DONT BUY SMOOTH RODS ON Aliexpress.
+
+GT2 Cable
+=========
+
+
+.. image:: images/parts/015-gt2-calbe.png
+
+This provides the precision of movement for X and Y axis.
 
 * 3D printer parts from China
     * Talk about e3d v6 clones
