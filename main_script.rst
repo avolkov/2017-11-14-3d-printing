@@ -123,6 +123,10 @@ Heated Bed
 
 If you want to print anything other than expensive PLA, this is for you. One of major annoying issues with FDM 3D printing is first layer adhesion. Theoretically it's possible to print without heated bed, but it's a world of pain, just get it, and this bed *Can* go to 105C.
 
+This is an open source design that generally works and generally is pretty straight. The heated bed works with both 12V and 24V (with a slightly different wiring for each).
+
+It's kind of silly to use a power supply to transform 110V AC to 12V DC to then just simply use that electricity for heating, and there are better solutions, like attaching a 110V silicone heater to an aluminium slab. But at $10 to $15 per piece nothing beats this solution that works well enough.
+
 Power Supply
 ============
 
@@ -193,16 +197,170 @@ ABS is sensitive to initial layer height, all plastic is, but ABS in particular.
 
 I'm getting a much more expensive set from Misumi USA, a part of this built was figuring out where to get suppliers, and if there's only one thing I can express in this talk it's -- DONT BUY SMOOTH RODS ON Aliexpress.
 
-GT2 Cable
-=========
+GT2 Belt
+========
 
 
-.. image:: images/parts/015-gt2-calbe.png
+.. image:: images/parts/015-gt2-cable.png
 
-This provides the precision of movement for X and Y axis.
+This provides the precision of movement for X and Y axis. I bought polyurethane belt with steel threads first, and though it supposed to last longer it's stiffness makes it much harder to mount it on belt holders I highly recommend using rubber belts
 
-* 3D printer parts from China
-    * Talk about e3d v6 clones
+GT2 Pulleys
+===========
+
+
+.. image:: images/parts/016-pulleys.png
+
+The thing that tensions the beld on the opposite side of the motor that drives it. I used the one matching teeth count of a timing pulley. So far only one of them failed on me because I overtentioned the belt, then the bearing in the pulley failed.
+
+M5 couplers
+===========
+
+.. image:: images/parts/017-m5-couplers.png
+
+Couplers that attach M5 rods (that drive Z axis) to stepper motors, in the previous iterations of the design aquarium hoses and zipties were used to attach M5 rods to motors. In the current version, Z lead screws and motors come as a single unit.
+
+I tried replacing M5 threader rods with M8 Rods to increase Z-axis speed a bit and precision. That increased speed but precision got worse, in fact it cause the pronounced Z-wobble to appear on prints.
+
+Threaded rods are just not precise for this application, and center of the rod moves as the rod turns, and while it's possible to get away with this using M5 (and as I read M6 rod), the bigger sizes of rods only will make this problem more pronounced.
+
+Somewhat more expensive but much better solution is to use lead screws, that have 4 thres instead of one -- that ensures that as screw turns the center of the rod remains in the same place.
+
+
+Timing Pulleys
+==============
+
+.. image:: images/parts/018-timing-pulley.png
+
+The thing that controls movement of X and Y axis that are pulled by GT2 belts. The fewer teeth the pulley has, the more torque and the better step precision, as motor rotation translates into level movements. I used 16-teeth pulleys, but 20-teeth pulleys are also available.
+
+
+Linear Bearings
+===============
+
+.. image:: images/parts/019-lm8uu-linear-bearings.png
+
+I've bought short and long really cheap bearings. After a while, about 100 hours of printing they get kind of loose, that especially noticeable on y axis assembly. If pressing down on a corner of a heated bed the whole bed moves in the opposite direction -- the bearings are too loose. This also may be caused by  zipties that hold them also get kind of loose.
+
+I'm currently trying out linear bearings by MISUMI that are 5 times more expensive to see if they are making any difference.
+
+Square Nuts
+===========
+
+.. image:: images/parts/020-square-nuts.png
+
+M5 square nuts to be precise. These can't be find anywhere. I ended up ordering them from China.
+
+Springs
+=======
+
+
+.. image:: images/parts/021-1.2mm-5mm-20mm-springs.png
+
+Springs are used to press down filament against a hobbed gear of the extruder with a 625 bearings. They don't undergo much stress and they generally work.
+
+
+E3D V6 Knockoff
+===============
+
+
+.. image:: images/parts/e3d-v6.png
+
+
+This is a knock off of a E3D V6 hotend, since the original has been released under open-source license making a clone is kind of easy. Though the clones not as good as the original, machining is not precise and and J-throat that connects heater block to radiator is much thicker, meaning that melting zone is not as well defined as in the genuine part.
+
+That being said genuine E3D V6 costs about $60, a knock-off ranges between $5 and $12.
+
+Also cloned hot ends have a teflon liner inside of a heat break, that the liner effectively limits hotend temperature to 240C. With this limitation it is still possible to print PLA, ABS and PETG, but not Nylon.
+
+
+
+A roll of Nylon
+===============
+
+3mm roll of nylon filament is used to provide rigidity for the wires that go to heated bed and extruder.
+
+
+Cable wrap
+==========
+
+
+A nice way for cable management and to provide additional rigidity for the wires.
+
+
+Flat board
+==========
+
+MDF or particle board. Home depot will helpfully cut any of their boards into
+
+
+Zip ties
+========
+
+
+Lots of Zip Ties
+
+===============
+METRIC HARDWARE
+===============
+
+
+It was surprisingly difficult to find metric hardware at first, but then some of the industrial suppliers do sell their stuff to individuals and not corporations.
+
+Disclaimer -- M8 and M10 rods that hold together Y axis can be replaced with their imperial counterparts, that would require adjusting affected 3D printed parts, or drilling/sanding.
+
+M5 rods can't as imperial rods of the similar size would introduce bad Z-wobble.
+
+Also technically M3 screws/nuts can be replaced, but then again things would get too tight and crack or be too loose and not hold things together, and again all the plastic parts designed for M3 screws/nuts/square nuts will need to be modified.
+
+So Hardware. For one 3D printer
+
+1X M10 1M Threaded Rod / M10 Nuts
+1X M8 1M Threaded rod / M8 Nuts
+1X M5 1M Treaded rod / Two M5 Nuts
+
+Though latest model if Prusa i3 uses aluminum extrusions instead of M10 and M8 Rods.
+
+Lots of zipties
+
+(Cut the rods to pieces)
+
+M3 Hardware
+===========
+
+
+10/12/16/18/20/25.30/40mm M3 Screws
+Lots of M3 Nuts.
+
+
+Suppliers -- I Acklands Grainger had all of the stuff, though for some reason M3x20 screws too forever to arrive (as in several months).
+
+Printed parts
+=============
+
+Parts are available, and even modified for this particular build.
+
+https://github.com/ardenpm/Original-Prusa-i3
+
+So far the hardest part of the build was to print ABS without knowing how to properly print ABS. Parts need to be printend from ABS because of their temperature resistances and mechanical characteristics.
+
+Fortunately since that requirement has been  established But there's a hack for that -- use PETG for all the parts but the extruder and print extruder parts with ABS. PETG is much easier to print, it's got a melting point of 70C which is enough for most applications, but the parts near extruder still need to be made out of ABS.
+
+
+Assembling the printer
+======================
+
+The best part about this design that everything is so open-source, and there's the official step by step manual
+
+http://manual.prusa3d.com/c/Original_Prusa_i3_MK2_kit_assembly
+
+That goes over every axis, extruder and final assembly.
+
+There's also Thomas Salanderer's 5-part series (it almost sounds like a documentary). Where he goes over
+
+
+
+
 * Metric hardware
     * Possible imperial hardware replacement
     * Things that absolutely need to be metric of spec M5 Rod
