@@ -382,13 +382,65 @@ Relevant variables
 
 Version of the firmware and who made the changes
 
+Author/Version
+==============
 
 .. code-block:: C
 
     # define STRING_CONFIG_H_AUTHOR "(Alex Volkov, 2017 October 12)" // Who made the changes.
 
 
+Maximum temperature of the heater, with teflon lining the resonable value would be 260C
 
+Max Heater Temp
+===============
+
+.. code-block:: C
+
+    #define HEATER_0_MAXTEMP 300
+
+
+PID controller values for Heated  bed and Nozzle. PID(proportional-integral-derivative) is a closed loop controller for heating bed/nozlles, default values are fine for the initial runs, but later PID tuning should be used to make temperature control more precise.
+
+Nozzle
+======
+
+
+.. code-block:: C
+
+    #define  DEFAULT_Kp 9.13
+    #define  DEFAULT_Ki 0.51
+    #define  DEFAULT_Kd 40.61
+
+
+Bed
+====
+.. code-block:: C
+
+    //  M303 E-1 S95 C8
+    // 24 V system  calibration
+    #define  DEFAULT_bedKp 60.63
+    #define  DEFAULT_bedKi 0.91
+    #define  DEFAULT_bedKd 1013.15
+
+
+Axis per unit setting
+=====================
+
+
+.. code-block:: C
+
+     * Override with M92
+  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
+  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
+  */
+  */
+    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 4000, 143 }
+
+
+Axis per unit are used to determine how many micro steps need to move axis by 1mm
+
+For X/Y/Z axis the values are derived based on how many steps per rotation a motor has 200/400 or how many degrees per step 1.8/0.9, the number of microsteps that motor driver is capable of 16/32 and belt pitch for X and Y axis, thread pitch for Z axis. Prusa calculator is good
 
 
 Final steps of assembly
