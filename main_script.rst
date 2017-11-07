@@ -127,6 +127,8 @@ This is an open source design that generally works and generally is pretty strai
 
 It's kind of silly to use a power supply to transform 110V AC to 12V DC to then just simply use that electricity for heating, and there are better solutions, like attaching a 110V silicone heater to an aluminium slab. But at $10 to $15 per piece nothing beats this solution that works well enough.
 
+But buy a heated bed that's at least 3mm thick.
+
 Power Supply
 ============
 
@@ -356,9 +358,45 @@ http://manual.prusa3d.com/c/Original_Prusa_i3_MK2_kit_assembly
 
 That goes over every axis, extruder and final assembly.
 
-There's also Thomas Salanderer's 5-part series (it almost sounds like a documentary). Where he goes over
+There's also Thomas Salanderer's 6-part series (it almost sounds like a documentary). Where he goes over that manuall assembling the printer.
 
 
+https://www.youtube.com/watch?v=oVWLpvekby0&list=PLDJMid0lOOYkdh8jCqIw7AFIHQiuKbSKZ
+
+
+Compiling firmware
+==================
+
+There are two open source 3D printing firmware projects that are currently active. Repetier and Marlin.
+
+Since Marlin is the firmware used in the tutorial, so I just followed that.
+
+Here's the fork that I'm using, all I've done is to customize Configuration.h (and Configuration_adv.h) with the parameters for the 3D printer I'm using.
+
+mariln-1.15/mks-gen-1.4/Marlin/Configuration.h
+
+
+Relevant variables
+------------------
+
+
+Version of the firmware and who made the changes
+
+
+.. code-block:: C
+
+    # define STRING_CONFIG_H_AUTHOR "(Alex Volkov, 2017 October 12)" // Who made the changes.
+
+
+
+
+
+Final steps of assembly
+=======================
+
+The biggest scare that I had during assembly was when I tried to move axis back and for and they didn't move because the motors wired weirdly. Everything else worked surprisingly well.
+
+Several months after assembly I discovered that one of printer cables that I've used was bad. But by a lucky coincidence I didn't grab it out of the pile at that time.
 
 
 * Metric hardware
