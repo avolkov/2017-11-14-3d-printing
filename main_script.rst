@@ -6,7 +6,14 @@ Or How I spent this spring, summer, autumn and the stupid thing is still going
 
 So the story started some time ago where I was looking to get into 3D printing, and I've been mercilessly exploiting/taking care of hacklab 3d printers, where I printer a phone car holder and a tabled holder (do you see a pattern here?)
 
-I've been following Thomas Salandeerer channel toms3d on youtube, and at some point in february there was a featured series on how to build a 3D printer from scratch.
+3D printing workflow consists of getting any CAD design, converting it into a set of triangular meshes -- STL file, that converting that STL file into extruder movement commands that can be executed by a printer.
+
+Think if using OpenOffice to write a document, then converting it to a PS file that gets sent to a printer to be executed.
+
+In this talk I'm going to the opposite way, and at first show all the parts that make up a 3d printer, then the firmware that runs it, software that communicates with the said firmware, slicers that transform STL files into GCODE and finally CAD software that creates 3d objects.
+
+
+I've been following Thomas Salandeerer channel toms3d on youtube, and at some point in february there was a featured series on how to build a 3D printer from scratch. So I thought to myself, why not?
 
 TOM'S Guide
 ===========
@@ -376,6 +383,8 @@ Here's the fork that I'm using, all I've done is to customize Configuration.h (a
 mariln-1.15/mks-gen-1.4/Marlin/Configuration.h
 
 
+These are the variables I'm using for Marlin 1.1.15, initially I started with 1.1.10rc4, and between the versions the variable naming changes so that I couldn't use the same Configuration.h file on a newer project, so I had to go over each sections and modify the variables manually. Fortunately there aren't that many section that need to be modified.
+
 Relevant variables
 ------------------
 
@@ -430,17 +439,213 @@ Axis per unit setting
 
 .. code-block:: C
 
+    /**
+     * Default Axis Steps Per Unit (steps/mm)
      * Override with M92
-  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
-  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
-  */
-  */
+     *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
+     */
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 4000, 143 }
 
 
 Axis per unit are used to determine how many micro steps need to move axis by 1mm
 
-For X/Y/Z axis the values are derived based on how many steps per rotation a motor has 200/400 or how many degrees per step 1.8/0.9, the number of microsteps that motor driver is capable of 16/32 and belt pitch for X and Y axis, thread pitch for Z axis. Prusa calculator is good
+For X/Y/Z axis the values are derived based on how many steps per rotation a motor has 200/400 or how many degrees per step 1.8/0.9, the number of microsteps that motor driver is capable of 16/32 and belt pitch for X and Y axis, thread pitch for Z axis. Prusa calculator works for that
+
+https://www.prusaprinters.org/calculator/
+
+
+.. image:: images/005-prusa-calculator.png
+
+
+Extruder however needs to be manually calibrated for how much filament it consumes -- that's the last value in the set.
+
+
+Max feedrate
+============
+
+Basically the default speed of each axis and the extruder. The default values are a little high and it's nice to use conservative values as when feedrate is too high for a motor to handle it will lock up. I needed to decrease max feed rate for Z motors connected in parallel on a 12V system several times before they stopped randomly locking up.
+
+
+.. code-block:: C
+
+    #define DEFAULT_MAX_FEEDRATE          { 200, 200, 3, 25 }
+
+
+Grid Points
+===========
+
+For mesh bed leveling -- which is a feature of this printer, it allows to compensate in software for unevenness of the bed which makes it much easier to align the bed and helps with adhesion of ABS.
+
+This system however doesn't help at all when Y-axis rods are bent.
+
+The optimal mesh is 4x4, making a bigger mesh doesn't necessarily help with more precise leveling.
+
+
+.. code-block:: C
+
+    #define GRID_MAX_POINTS_X 4
+    #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
+
+
+Probing boundaries
+==================
+
+This section is mostly intended to set max probing points to prevent probe and/or nozzle from hitting one of the bed mounting points, but I've reduced these somewhat to compensate slightly for the horrible uneven smooth rods that screw up any kind of alignment.
+
+.. code-block:: C
+
+    #define LEFT_PROBE_BED_POSITION 30
+    #define RIGHT_PROBE_BED_POSITION 180
+    #define FRONT_PROBE_BED_POSITION 10
+    #define BACK_PROBE_BED_POSITION 190
+
+
+Minimum outer margin
+====================
+
+How far the probe can go before hitting other parts of the printer.
+
+
+.. code-block:: C
+
+    #define MIN_PROBE_EDGE 25
+
+
+Probe Offset
+============
+
+
+Probe offset from the nozzle. There are also explanation on how to set this up on a multi-extruder system, but I haven't really bothered with that yet
+
+.. code-block:: C
+
+
+    #define X_PROBE_OFFSET_FROM_EXTRUDER 19  // X offset: -left  +right  [of the nozzle]
+    #define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
+    #define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle]
+    // X and Y axis travel speed (mm/m) between probes
+    #define XY_PROBE_SPEED 8000
+    // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
+    #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+    // Speed for the "accurate" probe of each point
+    #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
+
+
+
+Compiling and uploading firmware
+================================
+
+The code can be edited with any editor, but the tool to upload it is Arduino editor.
+
+Set the correct serial port (usually /dev/ttyUSB0)
+
+Just select Tools -> Board  -> Adruino Genuino Mega / Mega 2560
+
+Then click on Upload. Barring any communications issues that will upload the firmware onto the board.
+
+
+
+
+First moves with the printer
+============================
+
+Using pronterface from printrun package.
+
+This program connects to the printer and sends of Gcode commands, have a GUI interface to test print moves (that axis are moving in the right directions).
+
+Turn the heaters on and off, execute gcode commands, and of course load and print gcode files.
+
+
+Brief gcode primer
+===================
+
+
+G0 X100 Y100 Z100 E10 -- move extruder to a given point, while extruding 10mm of filament.
+G1 X100 Y100 Z100 E10 -- do the same thing faster
+
+G28X -- home X axis
+G28Y -- home Y axis
+G28Z -- home Z axis.
+
+
+G29 -- perform mesh bed levelling
+
+Initialization startup code
+============================
+
+
+.. code-block:: None
+
+    # Homing
+    G28 X; Home X axis
+    G28 Y; Home Y axis
+    ;Get the initial value from the center of the bed
+    G0X107.5Y107.5 F3000; Move the bed so it's possible to home Z
+    G28 Z; Z axis homing must be performed
+    G29; mesh bed levelling
+    G0X107.5Y107.5Z10; Move nozzle to the center to avoid damaging capton tape in case of Z axis misalignment
+
+
+Shutdown gcode sequence
+=======================
+
+
+.. code-block:: None
+
+    # Homing
+    G28 X; Home X axis
+    G28 Y; Home Y axis
+    ;Get the initial value from the center of the bed
+    G0X107.5Y107.5 F3000; Move the bed so it's possible to home Z
+    G28 Z; Z axis homing must be performed
+    G29; mesh bed levelling
+    G0X107.5Y107.5Z10; Move nozzle to the center to avoid damaging capton tape in case of Z axis misalignment
+
+
+
+Setting up RPI, connecting and managing printer
+==========================================
+
+TODO
+
+
+Slicing software
+================
+
+
+Slic3r & cura
+
+
+
+Designing shapes in CAD
+========================
+
+
+TODO
+
+
+Printing with different materials
+=================================
+
+
+TODO
+
+
+Bed Adhesion issues with ABS
+
+Printing issues
+================
+
+
+TODO: BENT RODS.
+
+THE PLAGUE OF CHEAP HOMMADE PRINTER
+When things work, things work quite nicely but when they don't it's a nightmare to figure out what's wrong.
+
+
+
+
+
 
 
 Final steps of assembly
