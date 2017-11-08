@@ -570,8 +570,54 @@ G28Z -- home Z axis.
 
 G29 -- perform mesh bed levelling
 
+Initial Print
+=============
+
+This leads to using slicer and slicing software.
+
+Available slicing software
+
+Slic3r (Prusa edition) -- https://github.com/prusa3d/Slic3r/releases
+Cura (Ultimaker)  -- https://ultimaker.com/en/products/cura-software/list
+Simplify 3D (horribly proprietary)
+
+Since I'm clonning Prusa i3 I went with Slic3r, also Prusa offers configuration files for their printer, that are also usable for any printer
+
+
+Slic3r settings -- https://github.com/prusa3d/Slic3r-settings
+
+
+What to print
+=============
+
+The best and most popular print so far is 3D Benchy, a little boat that will tell you a lot of information about print quality and possible problems.
+
+3D Benchy -- http://www.3dbenchy.com/
+
+Settings that are OK for benchy is
+
+
+
+
+Layers dialog
+
+.. image:: images/006-slic3r-layers.png
+
+Set shell 1 layer thick
+
+Infil dialog
+
+
+.. image:: images/007-slic3r-infill.png
+
+Set infill at 10%
+
 Initialization startup code
 ============================
+
+
+This leads to setting up printer initialization in slicer and slicing software.
+
 
 
 .. code-block:: None
@@ -655,125 +701,4 @@ The biggest scare that I had during assembly was when I tried to move axis back 
 
 Several months after assembly I discovered that one of printer cables that I've used was bad. But by a lucky coincidence I didn't grab it out of the pile at that time.
 
-
-* Metric hardware
-    * Possible imperial hardware replacement
-    * Things that absolutely need to be metric of spec M5 Rod
-    * Talk about Z-woble
-    * hardware suppliers
-* 3D printed parts, printing ABS
-* Frame/particle board
-
-* Assembly
-
-* Custom parts
-
-* Compiling Marlin
-    * Mesh bed leveling and tuning
-
-* Tuning
-    * Extruder calibration
-    * probe leveling with a piece of paper
-    * G28
-
-
-* Issues
-    * motors not working
-    * nozzle hits the bed
-    * layer adhesion issues
-        * kapton tape
-        * bed levelling
-        * pre-bent rods (and how to buy the right ones)
-    *
-
-########
-Software
-########
-
-* Arduino
-* Marlin
-* pronterface and printrun package
-* Slicer and Slic3r (or cura)
-* Octoprint (with raspberry pi)
-
-####################
-Learning to 3d print
-####################
-
-Common 3d printing issues.
-* Z wobble
-* bed leveling issues
-    * prints fail
-    * overextrusion
-    * bent rods
-* temperature
-* cooling
-    * part cooling fan for
-
-* Tools
-    * Alcohol spray bottle
-    * Kapton tape (old school)
-    * spatula
-    * pincers
-    * Metric hex screwdriver
-    * snips
-    * smaller pincers
-    * automotive pincers for heater block
-    * acetone
-* Printing with materials properties -- advantages/downsides
-* PLA
-* ABS
-* ABS+ (stronger but not any easier to print)
-* PETG (Only slightly more expensive than pla)
-
-Exotics: Nylon, ASA, Solubles
-
-
-
-Issues
-* temperature
-* cooling
-* overhangs
-* slicer settings
-
-Debugging
-* 3D benchy
-
---------------
-Heated chamber
---------------
-
-* Purpose
-    * Improvements:
-    * layer adhesion
-    * layer shifting
-    * ABS / ASA layer improvement
-* Version 1 -- really cheap, Lacking + polyurethane tape
-* Version 2 --
-==============
-Gcode commands
-==============
-
-G1
-G0
-G28
-G29 -> needs to be adjusted because frame is thinker than aluminum one
-
-
-========
-projects
-========
-* project parts
-* stuff on thingiverse
-* thingiverse (with caveats)
-* youmagine
-* parametric parts (good stuff) for openscad -- basically a source code that every admin/programmer can understand.
-* onshape
-* fusion 360 (with caveats)
-
-===========
-Final notes
-===========
-
-Still easier than learning javascript ecosystem
 
