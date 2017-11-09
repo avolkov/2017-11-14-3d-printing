@@ -602,8 +602,6 @@ Move the probe away from the bed if nozzle doesn't touch the paper
 
 
 
-
-
 Brief gcode primer
 ===================
 
@@ -700,8 +698,30 @@ Shutdown gcode sequence
 Setting up RPI, connecting and managing printer
 ===============================================
 
-TODO
+Octoprint is a distribution of raspbian that is made to control 3D printers with web interface that's pretty neat.
 
+It charts tempertature settings, camera with some degree of control over axis , temperature and feedrate, live part printing progress preview (as it appears in gcode), and exposes terminal in the similar way that pronterface doe.
+
+I tried raspberry Pi Zero but at the end switched to Raspberry Pi 3 because I wanted to have live camera feed (which is especially useful in heated chambers), and much faster boot times.
+
+I'm not using a separate power supply and just running it from 2.5 Amp DC-DC buck converter, which so far seemed to be plenty.
+
+There was nothing special about setting up Octoprint
+
+
+I only needed to specify name, build volume number of extruders and nozzle diameter.
+
+
+
+Octoprint Plugins
+=================
+
+Filament manager --
+Navbar Temperature plugin
+Print history
+Print stats
+Telegram
+Slic3r
 
 Slicing software
 ================
