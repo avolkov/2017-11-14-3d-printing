@@ -1,8 +1,9 @@
-=========
+=====================================
 On building a 3D printer from scratch
-=========
+=====================================
+
 Or How I spent this spring, summer, autumn and the stupid thing is still going
----------
+------------------------------------------------------------------------------
 
 So the story started some time ago where I was looking to get into 3D printing, and I've been mercilessly exploiting/taking care of hacklab 3d printers, where I printer a phone car holder and a tabled holder (do you see a pattern here?)
 
@@ -50,7 +51,7 @@ Prusa Mendel
     :width: 200
 
 
-Prusa as a company has been around for a while and is committed to open-source design. They published printed part schematics on Github under GPL v2 in OpenSCAD, frame schematics SVG, software -- a Marlin fork and smoothie board for electronics. Stepper drives situation is similar to the situation in computing in general, the chip hardware is closed source; the biggest players on the market
+Prusa as a company has been around for a while and is committed to open-source design. They published printed part schematics on Github under GPL v2 in OpenSCAD, frame schematics SVG, software -- a Marlin fork and smoothie board for electronics. Stepper drivers situation is similar to the situation in computing in general, the chip hardware is closed source; the biggest players on the market
 
 Prusa also publishes full assembly manual from nuts, bolts, printer parts and 3d-printer specific parts [CIT003]_
 
@@ -90,7 +91,7 @@ To wire everything up, because you're really don't want to cramp and solder your
 Stepper Drivers
 ===============
 
-.. image:: images/parts/002-stepper-drivers.jpg
+.. image:: images/parts/002-stepper-drivers.png
 
 Basically transistors converting whatever is coming out of arduino into 12V/2A signal. For the purposes of doing the cheapest build use Allegros, they will work.
 
@@ -102,13 +103,6 @@ RAMPS
 The thing that connects arduino, steppers, wires motors and some fuses. This is an opensource design -- that's why it's possible to buy it from China for $5. There are attempts to 3D print this, that ended up with very mixed results.
 I'm not an electronics person but I've been told that fuses are garbage and #2 cause of 3D printers catching on fire.
 
-Knock off arduino
-=================
-
-.. image:: images/parts/011-arduino-mega-knockoff.png
-
-The thing that runs the whole thing, i.e. where USB cable gets plugged in.
-
 Inductive proximity probe
 =========================
 
@@ -119,7 +113,7 @@ This is used for aligning a nozzle relatively to the bed, on Z axis and automati
 Mechanical endstops
 ===================
 
-.. image:: images/parts/004-mechanical-endstops.png
+.. image:: images/parts/004-mechanical-endstop.png
 
 The same thing but for X and Y axis, that don't need to be aligned. Basically mechanical switches..
 
@@ -192,7 +186,8 @@ For this design 2X motors for Z axis, and one motor for each ,X axis, Y axis and
 625 ball bearings
 =================
 
-.. image:: images/parts/13-625-ball-bearings.png
+
+.. image:: images/parts/013-625-ball-bearings.png
 
 In the design one of this used to press filament against hobbed gear attached to an extruder motor, so the filament can be pushed through into heat zone.
 
@@ -218,7 +213,7 @@ GT2 Pulleys
 ===========
 
 
-.. image:: images/parts/016-pulleys.png
+.. image:: images/parts/016-gt2-pulleys.png
 
 The thing that tensions the beld on the opposite side of the motor that drives it. I used the one matching teeth count of a timing pulley. So far only one of them failed on me because I overtentioned the belt, then the bearing in the pulley failed.
 
@@ -273,7 +268,7 @@ E3D V6 Knockoff
 ===============
 
 
-.. image:: images/parts/e3d-v6.png
+.. image:: images/parts/022-e3d-v6.png
 
 
 This is a knock off of a E3D V6 hotend, since the original has been released under open-source license making a clone is kind of easy. Though the clones not as good as the original, machining is not precise and and J-throat that connects heater block to radiator is much thicker, meaning that melting zone is not as well defined as in the genuine part.
@@ -282,6 +277,8 @@ That being said genuine E3D V6 costs about $60, a knock-off ranges between $5 an
 
 Also cloned hot ends have a teflon liner inside of a heat break, that the liner effectively limits hotend temperature to 240C. With this limitation it is still possible to print PLA, ABS and PETG, but not Nylon.
 
+
+.. image:: images/parts/023-e3dv6-cutaway.jpg
 
 
 A roll of Nylon
@@ -309,9 +306,9 @@ Zip ties
 
 Lots of Zip Ties
 
-===============
+###############
 METRIC HARDWARE
-===============
+###############
 
 
 It was surprisingly difficult to find metric hardware at first, but then some of the industrial suppliers do sell their stuff to individuals and not corporations.
@@ -350,6 +347,9 @@ Printed parts
 Parts are available, and even modified for this particular build.
 
 https://github.com/ardenpm/Original-Prusa-i3
+
+
+.. image:: images/008-extruder-cover.png
 
 So far the hardest part of the build was to print ABS without knowing how to properly print ABS. Parts need to be printend from ABS because of their temperature resistances and mechanical characteristics.
 
@@ -536,12 +536,15 @@ Compiling and uploading firmware
 ================================
 
 The code can be edited with any editor, but the tool to upload it is Arduino editor.
+Marlin firmware requires a more or less recent version of arduino, so the one in debian stable repository is too old, and the software should be download from the website. The current version is 1.8.5
 
 Set the correct serial port (usually /dev/ttyUSB0)
 
 Just select Tools -> Board  -> Adruino Genuino Mega / Mega 2560
 
 Then click on Upload. Barring any communications issues that will upload the firmware onto the board.
+
+.. image:: images/010-arduino-mega.png
 
 
 
@@ -551,9 +554,54 @@ First moves with the printer
 
 Using pronterface from printrun package.
 
+.. image:: images/009-pronterface.png
+
 This program connects to the printer and sends of Gcode commands, have a GUI interface to test print moves (that axis are moving in the right directions).
 
 Turn the heaters on and off, execute gcode commands, and of course load and print gcode files.
+
+
+Extruder calibration
+====================
+
+Take the cheapest spool of PLA that you have, insert it into the extruder and mark off 150mm. In Pronterface set extrusion length to 100mm, then set printer to extrude. When extrusion is finished measure the remaining length
+
+Then using the formula (100/extruded_mm) * E1_steps_per_mm, get a new steps per MM value.
+
+Go to adruino editor and adjust the value of DEFAULT_AXIS_STEPS_PER_UNIT, re-compile firmware and re-upload.
+
+Re-calibrate extruder again make sure that correct amount of plastic has been extruded.
+
+Different material may have different extrusion rates, so to skip re-compiling Marlin firmware, the value (100/extruded) mm can be entered in
+
+Filament Settings tabe -> Filament -> Extrusion multiplier field
+
+
+Nozzle height adjustment
+========================
+
+Nozzle height adjustment is critical for having successful print, especially for ABS -- the material most sensitive to precise bed position.
+
+The nozzle adjustment works as follows:
+
+Move nozzle to roughly the center of the bed
+
+G0X107Y107
+
+Move the inductive probe close to the bed. The sensing distance of LJ2A3-2-Z/AX-5V i 2mm. It's better to have the probe a bit closer initially to avoid the nozzle from hitting the bed.
+
+Run G28Z command that does initial alignment, then run G0Z0 command that brings nozzle close to the bed.
+
+Take a piece of paper and attempt to slide it in between the bed and the nozzle. If it's possible to slide it in, when the nozzle grabs onto the piece of paper, then bed leveling has been set.
+
+Otherwise adjust the probe position relative to the nozzle position.
+
+Bring probe closer to the bed if the nozzle is too close.
+
+Move the probe away from the bed if nozzle doesn't touch the paper
+
+
+
 
 
 Brief gcode primer
@@ -592,21 +640,24 @@ What to print
 
 The best and most popular print so far is 3D Benchy, a little boat that will tell you a lot of information about print quality and possible problems.
 
+
+.. image:: images/011-benchy.png
+
 3D Benchy -- http://www.3dbenchy.com/
 
 Settings that are OK for benchy is
 
 
-
-
 Layers dialog
+=============
+
 
 .. image:: images/006-slic3r-layers.png
 
 Set shell 1 layer thick
 
 Infil dialog
-
+============
 
 .. image:: images/007-slic3r-infill.png
 
@@ -620,7 +671,7 @@ This leads to setting up printer initialization in slicer and slicing software.
 
 
 
-.. code-block:: None
+.. code-block::
 
     # Homing
     G28 X; Home X axis
@@ -636,21 +687,18 @@ Shutdown gcode sequence
 =======================
 
 
-.. code-block:: None
+.. code-block::
 
-    # Homing
-    G28 X; Home X axis
-    G28 Y; Home Y axis
-    ;Get the initial value from the center of the bed
-    G0X107.5Y107.5 F3000; Move the bed so it's possible to home Z
-    G28 Z; Z axis homing must be performed
-    G29; mesh bed levelling
-    G0X107.5Y107.5Z10; Move nozzle to the center to avoid damaging capton tape in case of Z axis misalignment
+    M104 S0 ; turn off hotend
+    M140 S0; turn off heated bed
+    G0X0Y210Z160 F2500; Move extruder away from the print & move print forward
+    M84     ; disable motors
+
 
 
 
 Setting up RPI, connecting and managing printer
-==========================================
+===============================================
 
 TODO
 
