@@ -28,7 +28,7 @@
         * kapton tape
         * bed levelling
         * pre-bent rods (and how to buy the right ones)
-    *
+    * Zipties that hold linear bearings on Y-axis get loose over time making print quality really bad. and really hard to diagnoze as it looks like underextrusion. Show printed x-motor-holder.
 
 ########
 Software
