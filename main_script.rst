@@ -716,18 +716,22 @@ I only needed to specify name, build volume number of extruders and nozzle diame
 Octoprint Plugins
 =================
 
-Filament manager --
-Navbar Temperature plugin
-Print history
+Filament manager -- Measure how much filament has been used, to keep track if the spool has enough filament to finish the job
+Navbar Temperature plugin -- just convenient
+Print history -- success/failure print stats
 Print stats
-Telegram
-Slic3r
+Telegram - communicate with printer using telegram chat client
+Slic3r - slice on raspberry pi
 
 Slicing software
 ================
 
 
-Slic3r & cura
+Slic3r & Cura
+
+Slic3r -- main branch haven't had a realease in a while.
+
+
 
 
 
