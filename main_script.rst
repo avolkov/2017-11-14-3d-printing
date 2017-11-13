@@ -731,7 +731,14 @@ Slic3r & Cura
 
 Slic3r -- main branch haven't had a realease in a while.
 
+Slic3r Prusa edition -- Slic3r branch maintained by Prusa research
+Cura -- slicer by Ultimaker.
 
+Slic3r is written in Perl and Cura is written in python.
+
+Basic feature parity except Cura gives time estimates from the slicer software.
+
+For Slic3r you either have to use estimator built-in Octopi, or the site gcode.ws -- which gives really good estimate as it accounts for set acceleration values.
 
 
 
@@ -739,38 +746,95 @@ Designing shapes in CAD
 ========================
 
 
-TODO
+OpenSCAD -- Parametic software, basically you're writing source code using primitive shapes. I know this a bit because all Prusa i3 parts are designed using openSCAD.
+
+TinkerCAD -- WebApp, aimed for children, mostly for educational purposes
+
+OnShape -- Fully featured CAD software WebApp, licensing agreement stipulates that free tier makes files publicly available, similar model to github.
+
+
+AutoCAD 360 -- pairted down Autocad for makers. ** weird licensing, doesn't work on linux. Experimental web interface.
+
 
 
 Printing with different materials
 =================================
 
+See prusa3d/Slic3r-settings for material settings
 
-TODO
+Nozzle: 210C
+Bed: 60C
+Fan: On at 50%
+
+PLA -- Most popular material and is the cheapest
+
+Nozzle temperature: 210C
+
+Upsides:
+    * can be found at $20 per 1KG spool
+    * really easy to print
+    * Biodegradable.
+    * Possible to have transparent filament
+
+Upsides:
+
+    * Class transition at 60C
+    * Doesn't really work with mechanical applications
+    * Brittle
 
 
-Bed Adhesion issues with ABS
+PETG:
+
+Nozzle: 240C
+Bed: 90C
+Fan: On at 50%
+
+Upsides:
+    * Strong
+    * Glass transition at 80C
+    * Very strong, doesn't break but bents
+
+Downsides:
+    * Somewhat more expensive $30 -$35 per spool
+    * Not as temperature resistant as ABS
+    * Not as easy to print as PLA
+    * Needs faster retract settings
+    * Some stringing during printing
+
+
+ABS
+
+
+Nozzle: 240C
+Bed: 100C
+Fan: Either off or at 10% depending on material
+
+Upsides:
+
+    * Strong
+    * Glass transition at 105C
+    * a 1kg spool can be found for $20 - $25
+    * Easy to drill
+    * Easy to cut
+    * Dissolvable in acetone
+
+Downsides
+    * Hard to Print
+    * First layer adhesion issues (needs a good printer with straight smooth rods)
+    * Edge curling during print
+    * Layer bonding issues (heated chamber is highly recommended)
+    * Slower Print speeds
+
+
 
 Printing issues
 ================
 
+I mostly had issues with ABS, this is where layer adhesion is absolutely critical and for that expensive parts such as nozzle and smooth rods are absolutely have to be of good quality and precise.
 
-TODO: BENT RODS.
+Compared to printers out there mine is less reliable and a bit more finicky. I have to re-align the nozzle before the each print, and now I'm getting these weird underextrusion streaks on the sides of my prints and I've got no one to call and complain.
 
-THE PLAGUE OF CHEAP HOMMADE PRINTER
-When things work, things work quite nicely but when they don't it's a nightmare to figure out what's wrong.
+I already replaced parts of the nozzle, Z axis motor mounts, Y axis belt holder and other several print parts but the problem still persist.
 
-
-
-
-
-
-
-Final steps of assembly
-=======================
-
-The biggest scare that I had during assembly was when I tried to move axis back and for and they didn't move because the motors wired weirdly. Everything else worked surprisingly well.
-
-Several months after assembly I discovered that one of printer cables that I've used was bad. But by a lucky coincidence I didn't grab it out of the pile at that time.
-
+My next steps -- replace smooth rods sourced from Misumi, those are really straight because I can roll them on a desk without seeing any kind of gaps.
 
