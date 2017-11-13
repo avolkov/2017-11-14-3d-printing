@@ -336,7 +336,7 @@ M3 Hardware
 
 
 10/12/16/18/20/25.30/40mm M3 Screws
-Lots of M3 Nuts.
+Lots of M3 Nuts and washers
 
 
 Suppliers -- I Acklands Grainger had all of the stuff, though for some reason M3x20 screws too forever to arrive (as in several months).
@@ -574,7 +574,7 @@ Re-calibrate extruder again make sure that correct amount of plastic has been ex
 
 Different material may have different extrusion rates, so to skip re-compiling Marlin firmware, the value (100/extruded) mm can be entered in
 
-Filament Settings tabe -> Filament -> Extrusion multiplier field
+Filament Settings tab -> Filament -> Extrusion multiplier field
 
 
 Nozzle height adjustment
@@ -616,7 +616,7 @@ G28Z -- home Z axis.
 
 G29 -- perform mesh bed levelling
 
-Initial Print
+Slicing Print
 =============
 
 This leads to using slicer and slicing software.
