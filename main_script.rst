@@ -838,3 +838,9 @@ I already replaced parts of the nozzle, Z axis motor mounts, Y axis belt holder 
 
 My next steps -- replace smooth rods sourced from Misumi, those are really straight because I can roll them on a desk without seeing any kind of gaps.
 
+Zip ties holding Y Axis are getting loose all the time which leads to weird printing and layer adhesion issues. I'm going to use much thicker zipties.
+
+
+Sometimes everything works properly, other times I can't get printer to print anything in ABS -- Reliability.
+
+Mesh bed leveling with bent rods is actually make things harder to diagnose/debug. When rods are so bend that the distance between probe and nozzle actually matters because the angle of the bed changes so either the mesh leveling results produce mesh where nozzle sits too high, or crashes into the bed all the time.
