@@ -85,6 +85,13 @@ RAMPS
 
 ----
 
+Arduino mega knockoff
+=====================
+
+.. image:: images/parts/011-arduino-mega-knockoff.png
+
+----
+
 Inductive proximity probe
 =========================
 
@@ -133,13 +140,6 @@ Thermistor set
 
 .. image:: images/parts/010-thermistor-set.png
 
-
-----
-
-Arduino mega knockoff
-=====================
-
-.. image:: images/parts/011-arduino-mega-knockoff.png
 
 ----
 
@@ -255,6 +255,13 @@ Cable wrap
 
 Hold the wires -- wrap around
 
+
+----
+
+Flat board
+==========
+
+MDF or particle board.
 
 ----
 
@@ -502,8 +509,11 @@ First moves with the printer
 Extruder calibration
 ====================
 
+* (100/extruded_mm) * E0_Steps_per_mm
 
-Filament Settings tab -> Filament -> Extrusion multiplier field
+* DEFAULT_AXIS_STEPS_PER_UNIT
+
+* Filament Settings tab -> Filament -> Extrusion multiplier field
 
 -----
 
@@ -516,19 +526,24 @@ Nozzle height adjustment
 
 * G28Z
 
+* The first time you print ABS and it doesn't fail, you will Know what is right
+
 ------
 
 
 Brief Gcode Primer
 ==================
 
-G0 X100 Y100 Z100 E10 -- move extruder to a given point, while extruding 10mm of filament.
-G1 X100 Y100 Z100 E10 -- do the same thing faster
+* G0 X100 Y100 Z100 E10 -- move extruder to a given point, while extruding 10mm of filament.
+* G1 X100 Y100 Z100 E10 -- do the same thing faster
 
-G28X -- home X axis
-G28Y -- home Y axis
-G28Z -- home Z axis.
+* G0 X100 Y100 Z100 F4000 -- set the speed
 
+* G28X -- home X axis
+* G28Y -- home Y axis
+* G28Z -- home Z axis.
+
+* Don't run G28
 
 G29 -- perform mesh bed levelling
 
@@ -627,12 +642,12 @@ Octoprint
 Octoprint Plugins
 =================
 
-Filament manager -- Measure how much filament has been used, to keep track if the spool has enough filament to finish the job
-Navbar Temperature plugin -- just convenient
-Print history -- success/failure print stats
-Print stats
-Telegram - communicate with printer using telegram chat client
-Slic3r - slice on raspberry pi
+* Filament manager
+* Navbar Temperature plugin
+* Print history
+* Print stats
+* Telegram
+* Slic3r
 
 
 ----
@@ -657,7 +672,7 @@ Printing with different materials
 See prusa3d/Slic3r-settings for material settings
 
 
----
+----
 
 PLA
 ===
@@ -676,8 +691,7 @@ Upsides:
     * Biodegradable.
     * Possible to have transparent filament
 
-Upsides:
-
+Downsides:
     * Class transition at 60C
     * Doesn't really work with mechanical applications
     * Brittle
@@ -688,7 +702,7 @@ Upsides:
 PETG
 ====
 
-Almost as easy to print as PLA with much better mechanical properties. A possible replacement for ABS.
+Almost as easy to print as PLA with much better mechanical properties. A  replacement for ABS.
 
 Nozzle: 240C
 Bed: 90C

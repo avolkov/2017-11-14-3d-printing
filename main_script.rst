@@ -5,17 +5,22 @@ On building a 3D printer from scratch
 Or How I spent this spring, summer, autumn and the stupid thing is still going
 ------------------------------------------------------------------------------
 
-So the story started some time ago where I was looking to get into 3D printing, and I've been mercilessly exploiting/taking care of hacklab 3d printers, where I printer a phone car holder and a tabled holder (do you see a pattern here?)
 
-3D printing workflow consists of getting any CAD design, converting it into a set of triangular meshes -- STL file, that converting that STL file into extruder movement commands that can be executed by a printer.
+Hello I'm Alex Volkov and I spent a good chunk of summer building this machine, and now I'm gonna show you how to do it as well. So your summers can be as fun as mine!
 
-Think if using OpenOffice to write a document, then converting it to a PS file that gets sent to a printer to be executed.
+So the story started some time ago where I was looking to get into 3D printing, and I've been mercilessly exploiting/taking care of hacklab 3d printers, where I printed a phone car holder and a tabled holder (do you see a pattern here?)
 
-In this talk I'm going to the opposite way, and at first show all the parts that make up a 3d printer, then the firmware that runs it, software that communicates with the said firmware, slicers that transform STL files into GCODE and finally CAD software that creates 3d objects.
+Once you get a 3D printer, the workflow consists of getting any CAD design, converting it  into a set of triangular meshes -- an STL file, then converting that STL file into extruder movement commands that are executed by your printer.
+
+Think if using OpenOffice to write a document, then converting it to a PS file that gets sent to a printer that converts ps file into laser movements on paper.
+
+In this talk I'm going to show all the parts that make up a 3d printer,  how to set up Marlin firmware, software that communicates with the said firmware, slicers and CAD
 
 
-I've been following Thomas Salandeerer channel toms3d on youtube, and at some point in february there was a featured series on how to build a 3D printer from scratch. So I thought to myself, why not?
+I've been following Thomas Salandeerer channel toms3d on youtube, and at some point in February there was a featured series on how to build a 3D printer from scratch. So I thought to myself, why not?
 
+
+SLIDE #2
 TOM'S Guide
 ===========
 
@@ -25,7 +30,19 @@ Tom's guilde -- [CIT001]_ on building the cheapest possible prusa i3
 
 These video series didn't come out of nowhere, it is based on one of more simpler and popular commercial 3d printers that are completely open-source -- Prusa i3 mk2
 
-Prusa i3 mk2 is a part of reprap project build by Joe Prusa, based on Prusa Mendel which itself is based on Prusa Mendel,
+Prusa i3 mk2 is derived from RepRap project (started at university of bath), and improved on by Joe Prusa, based on
+
+
+Slide #3
+
+Prusa i2 which itself is based on
+
+
+Slide #3
+Prusa Mendel,
+
+
+You see the improvements.
 
 Prusa i3 wiki -- [CIT002]_
 
@@ -95,6 +112,17 @@ Stepper Drivers
 
 Basically transistors converting whatever is coming out of arduino into 12V/2A signal. For the purposes of doing the cheapest build use Allegros, they will work.
 
+
+Allegro A4988 [CIT004]_
+TI DRV8824 [CIT005]_
+Trinamic TMC2100 [CIT006]_
+
+
+.. [CIT004] -- http://www.allegromicro.com/en/Products/Motor-Driver-And-Interface-ICs/Bipolar-Stepper-Motor-Drivers/A4988.aspx
+.. [CIT005] -- http://www.ti.com/product/DRV8825
+.. [CIT006] -- https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2100_datasheet.pdf
+
+
 RAMPS
 =====
 
@@ -102,6 +130,18 @@ RAMPS
 
 The thing that connects arduino, steppers, wires motors and some fuses. This is an opensource design -- that's why it's possible to buy it from China for $5. There are attempts to 3D print this, that ended up with very mixed results.
 I'm not an electronics person but I've been told that fuses are garbage and #2 cause of 3D printers catching on fire.
+
+
+Arduino mega knockoff
+=====================
+
+.. image:: images/parts/011-arduino-mega-knockoff.png
+
+. This underscores how many ideas for 3D printing were implemented in 1980s technology. Instead of figuring out a real-time system, a firmware was implement to work with bare hardware, arduino makes working with bare hardware easy.
+
+Or you can use genuine arduino mega
+
+
 
 Inductive proximity probe
 =========================
@@ -115,20 +155,20 @@ Mechanical endstops
 
 .. image:: images/parts/004-mechanical-endstop.png
 
-The same thing but for X and Y axis, that don't need to be aligned. Basically mechanical switches..
+The same thing as inductive probe but for X and Y axis that do no, that don't need to be aligned. Basically mechanical switches..
 
 Heated Bed
 ==========
 
 .. image:: images/parts/006-heated-bed.png
 
-If you want to print anything other than expensive PLA, this is for you. One of major annoying issues with FDM 3D printing is first layer adhesion. Theoretically it's possible to print without heated bed, but it's a world of pain, just get it, and this bed *Can* go to 105C.
+If you want to print anything other than expensive PLA, this is for you. One of major annoying issues with FDM 3D printing is first layer adhesion. Theoretically it's possible to print without heated bed, but it's a world of pain, just get it, and this bed *Can* go to 105C. I tried to get it to 110C but then everything kind of shuts off because the bed can't reach the target temperature and safety triggers everything to  shut.
 
-This is an open source design that generally works and generally is pretty straight. The heated bed works with both 12V and 24V (with a slightly different wiring for each).
+This is an open source design that generally works and generally is pretty straight. The heated bed works with both 12V and 24V depending on how you wired it.
 
 It's kind of silly to use a power supply to transform 110V AC to 12V DC to then just simply use that electricity for heating, and there are better solutions, like attaching a 110V silicone heater to an aluminium slab. But at $10 to $15 per piece nothing beats this solution that works well enough.
 
-But buy a heated bed that's at least 3mm thick.
+Buy a heated bed that's at least 3mm thick.
 
 Power Supply
 ============
@@ -166,21 +206,20 @@ This just gets stuck to the bottom of the bed or whenever I manage to damage a t
 
 For the hot bed the thermistors get attached with kapton tape. On E3D V6 hotend there's a screw that holds it in place.
 
-Arduino mega knockoff
-=====================
-
-.. image:: images/parts/011-arduino-mega-knockoff.png
-
-Or you can use genuine arduino mega. This underscores how many ideas for 3D printing were implemented in 1980s technology. Instead of figuring out a real-time system, a firmware was implement to work with bare hardware, arduino makes working with bare hardware easy.
+The beauty of kapton tape -- it's a tape that doesn't loose its adhesion properties when it gets heated up.
 
 Nema 17 steppers
 ================
 
 .. image:: images/parts/012-nema17hs4401-steppers.png
 
-Or just any stepper motors that fit profile. I bought these and then it turned out that the two leads in the middle are reversed. After figuring that out, I had to splice a wiring kit.
+Or just any stepper motors that fit profile. I bought these and then it turned out that the two leads in the middle are reversed. I never worked with the motors and that was a real fun thing to figure out.
+
+I also bought an extra wiring it anmd the I had to ruin it to make it work with these motors. Pay extra for non mixed-up wires.
 
 For this design 2X motors for Z axis, and one motor for each ,X axis, Y axis and extruder.
+
+So you need 5.
 
 
 625 ball bearings
@@ -196,8 +235,10 @@ Smooth rods
 
 .. image:: images/parts/014-smooth-rods.png
 
-Parts that provide precision and rigidity for linear movements. I bought these on aliexpress for about $40 a set and they suck, and my printers are terrible. The linear rods came pre-bent, and these are one part of the 3D printer that needs to be precise.
+Parts that provide precision and rigidity for linear movements. I bought these on aliexpress for about $40 a set and they suck, which makes my printers terrible. The linear rods came pre-bent, and these are one part of the 3D printer that needs to be precise.
 ABS is sensitive to initial layer height, all plastic is, but ABS in particular. And if you ever want to print at all with ABS you need to straight rods.
+
+A way to test rods is to put them on a flat surface -- i.e. dest, and if there's any gap between rod and desk, they are bent and will suck. 0.5mm bend in the rod equals 2.5x layer height, so if you configure your printer properly changes are that the nozzle will hit the bed, or you will never get to have ABS to stick to it, because the nozzle will be way to far, to squish filament and make it stick.
 
 I'm getting a much more expensive set from Misumi USA, a part of this built was figuring out where to get suppliers, and if there's only one thing I can express in this talk it's -- DONT BUY SMOOTH RODS ON Aliexpress.
 
@@ -207,7 +248,9 @@ GT2 Belt
 
 .. image:: images/parts/015-gt2-cable.png
 
-This provides the precision of movement for X and Y axis. I bought polyurethane belt with steel threads first, and though it supposed to last longer it's stiffness makes it much harder to mount it on belt holders I highly recommend using rubber belts
+This provides the precision of movement for X and Y axis. I bought polyurethane belt with steel threads first, and though it supposed to last longer but it's stiffness makes it much harder to mount it on belt holders.
+
+I highly recommend using rubber belts it's just easier.
 
 GT2 Pulleys
 ===========
@@ -229,6 +272,8 @@ I tried replacing M5 threader rods with M8 Rods to increase Z-axis speed a bit a
 Threaded rods are just not precise for this application, and center of the rod moves as the rod turns, and while it's possible to get away with this using M5 (and as I read M6 rod), the bigger sizes of rods only will make this problem more pronounced.
 
 Somewhat more expensive but much better solution is to use lead screws, that have 4 thres instead of one -- that ensures that as screw turns the center of the rod remains in the same place.
+
+I bought a set but the current problem I'm having that the copper nuts rods came with don't quite align with the design, so I'm printing the nuts from PETG, but before that I'm attempting to fix my printer.
 
 
 Timing Pulleys
@@ -253,7 +298,7 @@ Square Nuts
 
 .. image:: images/parts/020-square-nuts.png
 
-M5 square nuts to be precise. These can't be find anywhere. I ended up ordering them from China.
+M3 square nuts to be precise. These can't be found anywhere. I ended up ordering them from China.
 
 Springs
 =======
@@ -280,6 +325,7 @@ Also cloned hot ends have a teflon liner inside of a heat break, that the liner 
 
 .. image:: images/parts/023-e3dv6-cutaway.jpg
 
+Though that didn't stop me from trying to print with higher temperatures, eventually nylon filling fell out and I got a full metal hotend. not precise but wokrs. Kind of. Haven't tried nylon yet.
 
 A roll of Nylon
 ===============
@@ -306,43 +352,49 @@ Zip ties
 
 Lots of Zip Ties
 
+Turns out they get brittle after a while, especially green ones.
+
 ###############
 METRIC HARDWARE
 ###############
 
 
-It was surprisingly difficult to find metric hardware at first, but then some of the industrial suppliers do sell their stuff to individuals and not corporations.
+It was surprisingly difficult to find metric hardware at first, but then some of the industrial suppliers do sell their stuff to individuals and not onlycorporations.
 
-Disclaimer -- M8 and M10 rods that hold together Y axis can be replaced with their imperial counterparts, that would require adjusting affected 3D printed parts, or drilling/sanding.
+Disclaimer -- M8 and M10 rods that hold together Y axis can be replaced with their imperial counterparts, that would require either adjusting affected 3D printed parts, or drilling/sanding.
 
 M5 rods can't as imperial rods of the similar size would introduce bad Z-wobble.
 
 Also technically M3 screws/nuts can be replaced, but then again things would get too tight and crack or be too loose and not hold things together, and again all the plastic parts designed for M3 screws/nuts/square nuts will need to be modified.
 
+One thing I learned is 7/64 is 2.73mm which is perfect size for drilling holes for M3 Nuts in MODF
+
 So Hardware. For one 3D printer
 
-1X M10 1M Threaded Rod / M10 Nuts
-1X M8 1M Threaded rod / M8 Nuts
-1X M5 1M Treaded rod / Two M5 Nuts
+1X M10 1M Threaded Rod  cut in 2 pieces/ M10 Nuts
+1X M8 1M Threaded rod  cut in 4 pieces/ M8 Nuts
+1X M5 1M Treaded rod cut in 2 pieces/ Two M5 Nuts
 
 Though latest model if Prusa i3 uses aluminum extrusions instead of M10 and M8 Rods.
 
-Lots of zipties
 
-(Cut the rods to pieces)
 
 M3 Hardware
 ===========
+
 
 
 10/12/16/18/20/25.30/40mm M3 Screws
 Lots of M3 Nuts and washers
 
 
-Suppliers -- I Acklands Grainger had all of the stuff, though for some reason M3x20 screws too forever to arrive (as in several months).
+Suppliers -- Icklands Grainger had all of the stuff, though for some reason M3x20 screws took forever to arrive (as in several months). And no M3 square nuts, shame on you.
 
 Printed parts
 =============
+
+
+I'm going to talk about different print materials later.
 
 Parts are available, and even modified for this particular build.
 
@@ -353,8 +405,14 @@ https://github.com/ardenpm/Original-Prusa-i3
 
 So far the hardest part of the build was to print ABS without knowing how to properly print ABS. Parts need to be printend from ABS because of their temperature resistances and mechanical characteristics.
 
-Fortunately since that requirement has been  established But there's a hack for that -- use PETG for all the parts but the extruder and print extruder parts with ABS. PETG is much easier to print, it's got a melting point of 70C which is enough for most applications, but the parts near extruder still need to be made out of ABS.
+Fortunately since that requirement has been  established But there's a hack for that -- use PETG for all the parts but the extruder and print extruder parts with ABS. PETG is much easier to print, it's got a glass transition of 80C which is enough for most applications, but the parts near extruder still need to be made out of ABS.
 
+Talk about how I printed stuff with PLA. I didn't don't follow my example.
+
+I have a nice picture on instagram of PLA part failing.
+Before failing, PLA bends under stress temperature introducing weird artifacts -- where do I even start figuring out whats is wrong here?
+
+This introduces more uncertainty into already complex system.
 
 Assembling the printer
 ======================
@@ -365,7 +423,7 @@ http://manual.prusa3d.com/c/Original_Prusa_i3_MK2_kit_assembly
 
 That goes over every axis, extruder and final assembly.
 
-There's also Thomas Salanderer's 6-part series (it almost sounds like a documentary). Where he goes over that manuall assembling the printer.
+There's also Thomas Salanderer's 6-part series (it almost sounds like a documentary). Where he goes over that assembling the printer.
 
 
 https://www.youtube.com/watch?v=oVWLpvekby0&list=PLDJMid0lOOYkdh8jCqIw7AFIHQiuKbSKZ
@@ -399,7 +457,7 @@ Author/Version
     # define STRING_CONFIG_H_AUTHOR "(Alex Volkov, 2017 October 12)" // Who made the changes.
 
 
-Maximum temperature of the heater, with teflon lining the resonable value would be 260C
+Maximum temperature of the heater, with teflon lining the unresonable value would be 260C
 
 Max Heater Temp
 ===============
@@ -410,6 +468,8 @@ Max Heater Temp
 
 
 PID controller values for Heated  bed and Nozzle. PID(proportional-integral-derivative) is a closed loop controller for heating bed/nozlles, default values are fine for the initial runs, but later PID tuning should be used to make temperature control more precise.
+
+Because everything will shut down if deviation is more than 10C from target unless you explicitly disable that. It's a safety feature.
 
 Nozzle
 ======
@@ -431,6 +491,8 @@ Bed
     #define  DEFAULT_bedKp 60.63
     #define  DEFAULT_bedKi 0.91
     #define  DEFAULT_bedKd 1013.15
+
+I had issues tuning it at temperature higher that 90C, don't tune this for temeperatures higher than 90C.
 
 
 Axis per unit setting
@@ -463,8 +525,10 @@ Extruder however needs to be manually calibrated for how much filament it consum
 Max feedrate
 ============
 
-Basically the default speed of each axis and the extruder. The default values are a little high and it's nice to use conservative values as when feedrate is too high for a motor to handle it will lock up. I needed to decrease max feed rate for Z motors connected in parallel on a 12V system several times before they stopped randomly locking up.
+Basically the default speed of each axis and the extruder. The default values are a little high.
 
+When feedrate is too high for a motor to handle it will lock up. I needed to decrease max feed rate for Z motors connected in parallel on a 12V system several times before they stopped randomly locking up.
+24V system has much more torque so this doesn't seem to be a problem.
 
 .. code-block:: C
 
@@ -476,7 +540,7 @@ Grid Points
 
 For mesh bed leveling -- which is a feature of this printer, it allows to compensate in software for unevenness of the bed which makes it much easier to align the bed and helps with adhesion of ABS.
 
-This system however doesn't help at all when Y-axis rods are bent.
+This system however doesn't help at all when Y-axis rods are bent. Or the angle is such that no matter what you do the brobe is far enough from the nozel that creates a differenre enough that the nozzle will hit the bed.
 
 The optimal mesh is 4x4, making a bigger mesh doesn't necessarily help with more precise leveling.
 
@@ -514,6 +578,7 @@ How far the probe can go before hitting other parts of the printer.
 Probe Offset
 ============
 
+You just measure the distance with caliper, and enter the values.
 
 Probe offset from the nozzle. There are also explanation on how to set this up on a multi-extruder system, but I haven't really bothered with that yet
 
@@ -546,7 +611,7 @@ Then click on Upload. Barring any communications issues that will upload the fir
 
 .. image:: images/010-arduino-mega.png
 
-
+I had some issues connecting from MSI motherboard, but my Thinkpad connected every time. I don't want to blame anyone, except usb cables.
 
 
 First moves with the printer
@@ -566,7 +631,7 @@ Extruder calibration
 
 Take the cheapest spool of PLA that you have, insert it into the extruder and mark off 150mm. In Pronterface set extrusion length to 100mm, then set printer to extrude. When extrusion is finished measure the remaining length
 
-Then using the formula (100/extruded_mm) * E1_steps_per_mm, get a new steps per MM value.
+Then using the formula (100/extruded_mm) * E0_steps_per_mm, get a new steps per MM value.
 
 Go to adruino editor and adjust the value of DEFAULT_AXIS_STEPS_PER_UNIT, re-compile firmware and re-upload.
 
@@ -600,6 +665,7 @@ Bring probe closer to the bed if the nozzle is too close.
 
 Move the probe away from the bed if nozzle doesn't touch the paper
 
+The first time you print ABS and it doesn't fail, you will Know
 
 
 Brief gcode primer
@@ -609,10 +675,15 @@ Brief gcode primer
 G0 X100 Y100 Z100 E10 -- move extruder to a given point, while extruding 10mm of filament.
 G1 X100 Y100 Z100 E10 -- do the same thing faster
 
+You can also set the speed
+
+G0 X100 Y100 Z100 F4000
+
 G28X -- home X axis
 G28Y -- home Y axis
 G28Z -- home Z axis.
 
+Dont run G28, it will move the bed to places that wil make nozzle and probe miss it (the original instructions for frame made of aluminium don't account for much thicker MDF)
 
 G29 -- perform mesh bed levelling
 
@@ -631,6 +702,55 @@ Since I'm clonning Prusa i3 I went with Slic3r, also Prusa offers configuration 
 
 
 Slic3r settings -- https://github.com/prusa3d/Slic3r-settings
+
+Slicing software
+================
+
+
+Slic3r & Cura
+
+Slic3r -- main branch haven't had a realease in a while.
+
+Slic3r Prusa edition -- Slic3r branch maintained by Prusa research
+Cura -- slicer by Ultimaker.
+
+Slic3r is written in Perl and Cura is written in python.
+
+Basic feature parity except Cura gives time estimates from the slicer software.
+
+For Slic3r you either have to use estimator built-in Octopi, or the site gcode.ws -- which gives really good estimate as it accounts for set acceleration values.
+
+Initialization startup code
+============================
+
+
+This leads to setting up printer initialization in slicer and slicing software.
+
+
+
+.. code-block::
+
+    # Homing
+    G28 X; Home X axis
+    G28 Y; Home Y axis
+    ;Get the initial value from the center of the bed
+    G0X107.5Y107.5 F3000; Move the bed so it's possible to home Z
+    G28 Z; Z axis homing must be performed
+    G29; mesh bed levelling
+    G0X107.5Y107.5Z10; Move nozzle to the center to avoid damaging capton tape in case of Z axis misalignment
+
+Moving to the center avoids a move that's close to the bed, which scratches and ruins Kapton tape.
+
+Shutdown gcode sequence
+=======================
+
+
+.. code-block::
+
+    M104 S0 ; turn off hotend
+    M140 S0; turn off heated bed
+    G0X0Y210Z160 F2500; Move extruder away from the print & move print forward
+    M84     ; disable motors
 
 
 What to print
@@ -661,38 +781,6 @@ Infil dialog
 
 Set infill at 10%
 
-Initialization startup code
-============================
-
-
-This leads to setting up printer initialization in slicer and slicing software.
-
-
-
-.. code-block::
-
-    # Homing
-    G28 X; Home X axis
-    G28 Y; Home Y axis
-    ;Get the initial value from the center of the bed
-    G0X107.5Y107.5 F3000; Move the bed so it's possible to home Z
-    G28 Z; Z axis homing must be performed
-    G29; mesh bed levelling
-    G0X107.5Y107.5Z10; Move nozzle to the center to avoid damaging capton tape in case of Z axis misalignment
-
-
-Shutdown gcode sequence
-=======================
-
-
-.. code-block::
-
-    M104 S0 ; turn off hotend
-    M140 S0; turn off heated bed
-    G0X0Y210Z160 F2500; Move extruder away from the print & move print forward
-    M84     ; disable motors
-
-
 
 Octoprint
 =========
@@ -705,13 +793,13 @@ Setting up RPI, connecting and managing printer
 
 Octoprint is a distribution of raspbian that is made to control 3D printers with web interface that's pretty neat.
 
-It charts tempertature settings, camera with some degree of control over axis , temperature and feedrate, live part printing progress preview (as it appears in gcode), and exposes terminal in the similar way that pronterface doe.
+It charts tempertature settings, camera with some degree of control over axis , temperature and feedrate, live part printing progress preview (as it appears in gcode), and exposes terminal in the similar way that pronterface does.
 
-I tried raspberry Pi Zero but at the end switched to Raspberry Pi 3 because I wanted to have live camera feed (which is especially useful in heated chambers), and much faster boot times.
+I tried raspberry Pi Zero but at the end switched to Raspberry Pi 3 because I wanted to have live camera feed as well as timeplaps (which is especially useful in heated chambers), and much faster boot times.
 
-I'm not using a separate power supply and just running it from 2.5 Amp DC-DC buck converter, which so far seemed to be plenty.
+I'm not using a separate power supply and just running it from 2.5 Amp DC-DC buck converter, which so far seemed to be plenty of amperage.
 
-There was nothing special about setting up Octoprint
+There was nothing special about setting up printer in octopring Octoprint
 
 
 I only needed to specify name, build volume number of extruders and nozzle diameter.
@@ -727,23 +815,9 @@ Print history -- success/failure print stats
 Print stats
 Telegram - communicate with printer using telegram chat client
 Slic3r - slice on raspberry pi
-
-Slicing software
-================
+Default is Cura, I tried just to use Precompiles slic3r but the statically linked perl bindings didn't like ARM on raspberry pi, so I had to figure out dependencies and do everything manually and I just don't see a lot of benefits of slicing on raspberry pi -- how do I change materials?
 
 
-Slic3r & Cura
-
-Slic3r -- main branch haven't had a realease in a while.
-
-Slic3r Prusa edition -- Slic3r branch maintained by Prusa research
-Cura -- slicer by Ultimaker.
-
-Slic3r is written in Perl and Cura is written in python.
-
-Basic feature parity except Cura gives time estimates from the slicer software.
-
-For Slic3r you either have to use estimator built-in Octopi, or the site gcode.ws -- which gives really good estimate as it accounts for set acceleration values.
 
 
 
