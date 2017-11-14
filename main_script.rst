@@ -343,7 +343,7 @@ A nice way for cable management and to provide additional rigidity for the wires
 Flat board
 ==========
 
-MDF or particle board. Home depot will helpfully cut any of their boards into
+MDF or particle board. Home depot will helpfully cut any of their boards into 370mmx370mm pieces.
 
 
 Zip ties

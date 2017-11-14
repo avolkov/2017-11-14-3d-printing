@@ -187,8 +187,8 @@ GT2 Pulleys
 ----
 
 
-M5 couplers
-===========
+M5 couplers / M5 Rods
+=====================
 
 .. image:: images/parts/017-m5-couplers.png
 
@@ -328,6 +328,13 @@ https://github.com/ardenpm/Original-Prusa-i3
 
 
 -----
+
+
+PLA parts fail
+==============
+
+
+.. image:: images/013-pla-vs-abs.jpg
 
 
 Assembling the printer
@@ -665,6 +672,17 @@ CAD Software
 * Autocad 360
 
 ----
+
+
+Catalogs of existing designs
+============================
+
+* youmagine.com
+
+* thingiverse.com -- weird licensing issues
+
+* both host mostly STL files but some designs have parametrized designs for OpenScad/Autocad
+
 
 Printing with different materials
 =================================
