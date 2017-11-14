@@ -1,5 +1,3 @@
-:data-transition-duration: 2000
-
 .. title: On building a 3D printer from scratch
 
 ----
@@ -740,17 +738,25 @@ Printing Issues
 
 * My printer is less reliable and more finicky than its originator.
 
+
+----
+
 * Have a printing issue I don't know how to fix, replaced:
     * Parts of the nozzle
     * Motor mounts for Z axis
     * Y axis belt holder
     * Hardware holding heated bed.
 
+----
+
 * Going to replace:
     * Smooth rods
     * Hotend
+    * Try different extruder motor
 
 * Zipties on Y Axis are getting loose all the time
+
+----
 
  * Sometimes everything works properly, other times I can't get printer to print anything in ABS -- Reliability.
 
