@@ -609,6 +609,13 @@ Infil dialog
 
 ----
 
+
+Octoprint!
+==========
+
+.. image:: images/012-octoprint.png
+
+
 Octoprint
 =========
 
@@ -761,3 +768,19 @@ Printing Issues
  * Sometimes everything works properly, other times I can't get printer to print anything in ABS -- Reliability.
 
  * Bed leveling issues.
+
+----
+
+Use big roll of kapton tape to improve bad adhesion.  Kind of old school.
+
+Upsides:
+    * Work most of the time
+    * Doesn't need any additional adjustment \w inductive probe
+    * Thin
+    * I've been printing for 5 months I still have plenty of roll left
+
+Biggest downsides:
+
+    * Kind of pain to apply
+    * Misaligned nozle will damage the surface
+    * Kind of expensive

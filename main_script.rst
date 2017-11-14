@@ -694,6 +694,11 @@ Shutdown gcode sequence
 
 
 
+Octoprint
+=========
+
+.. image:: images/012-octoprint.png
+
 
 Setting up RPI, connecting and managing printer
 ===============================================
@@ -844,3 +849,21 @@ Zip ties holding Y Axis are getting loose all the time which leads to weird prin
 Sometimes everything works properly, other times I can't get printer to print anything in ABS -- Reliability.
 
 Mesh bed leveling with bent rods is actually make things harder to diagnose/debug. When rods are so bend that the distance between probe and nozzle actually matters because the angle of the bed changes so either the mesh leveling results produce mesh where nozzle sits too high, or crashes into the bed all the time.
+
+
+Kapton Tape
+===========
+
+Use big roll of kapton tape to improve bad adhesion.  Kind of old school.
+
+Upsides:
+    * Work most of the time
+    * Doesn't need any additional adjustment \w inductive probe
+    * Thin
+    * I've been printing for 5 months I still have plenty of roll left
+
+Biggest downsides:
+
+    * Kind of pain to apply
+    * Misaligned nozle will damage the surface
+    * Kind of expensive
