@@ -337,6 +337,8 @@ PLA parts fail
 .. image:: images/013-pla-vs-abs.jpg
 
 
+----
+
 Assembling the printer
 ======================
 
