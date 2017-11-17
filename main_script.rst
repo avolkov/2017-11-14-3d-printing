@@ -17,7 +17,7 @@ Think if using OpenOffice to write a document, then converting it to a PS file t
 In this talk I'm going to show all the parts that make up a 3d printer,  how to set up Marlin firmware, software that communicates with the said firmware, slicers and CAD
 
 
-I've been following Thomas Salandeerer channel toms3d on youtube, and at some point in February there was a featured series on how to build a 3D printer from scratch. So I thought to myself, why not?
+I've been following Thomas Salanderer channel toms3d on youtube, and at some point in February there was a featured series on how to build a 3D printer from scratch. So I thought to myself, why not?
 
 
 SLIDE #2
